@@ -11,15 +11,13 @@ RSpec.describe User, type: :model do
       @user.save
       @user.posts.create(introduction_title:"はじめに", introduction?: true, introduction_text:"こんにちは",
                         tag_id: 1 )
+      tag = Tag.create(tag:"ニキビ")
       post = @user.posts.first
-      tag = Tag.create(tag:"にきび")
       tag_hub = TagHub.create(tag_id: tag.id, post_id: post.id)
       like = @user.likes.create(post_id: post.id)
       action = Action.create(step:1, conclusion:"顔あらえ", description: "すっきりするじゃん")
       action_plan = post.action_plans.create(action_id: action.id)
       expect(post.valid?).to eq(true)
-      puts "error:#{tag.errors.messages}"
-      puts "Tag.tag#{tag.tag}"
       expect(tag.valid?).to eq(true)
       expect(tag_hub.valid?).to eq(true)
       expect(like.valid?).to eq(true)

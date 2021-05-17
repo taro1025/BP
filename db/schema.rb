@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_141722) do
+ActiveRecord::Schema.define(version: 2021_05_17_153655) do
 
   create_table "action_plans", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "action_id"
-    t.integer "post_id"
+    t.integer "action_id", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -35,38 +35,37 @@ ActiveRecord::Schema.define(version: 2021_05_17_141722) do
   end
 
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.integer "tag_id"
-    t.string "introduction_title"
+    t.string "introduction_title", default: "はじめに"
     t.text "introduction_text"
-    t.boolean "introduction?"
-    t.string "sum_action_step"
+    t.boolean "introduction?", default: false, null: false
+    t.integer "sum_action_step"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tag_hubs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "tag_id", null: false
+    t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "tag_id"
-    t.integer "post_id"
   end
 
   create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "tag"
+    t.string "tag", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest"
     t.string "image"
     t.text "profile_text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
-    t.string "password_digest"
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end
