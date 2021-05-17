@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :likes
+  has_many :posts
+
   before_save { self.email.downcase! }
   validates :name, presence: true, length: { maximum: 50 }
   validates :profile_text, presence: true
@@ -8,5 +11,5 @@ class User < ApplicationRecord
                   format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 8 }                
+  validates :password, presence: true, length: { minimum: 8 }
 end
