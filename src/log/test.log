@@ -678,3 +678,159 @@ Completed 200 OK in 9ms (Views: 4.7ms | ActiveRecord: 0.9ms | Allocations: 4409)
   [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
   [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
   [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (2.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.`value` FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1'[0m
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+Started GET "/" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by StaticPagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering static_pages/home.html.erb within layouts/application
+  Rendered static_pages/home.html.erb within layouts/application (Duration: 0.6ms | Allocations: 279)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 21.9ms | Allocations: 8556)
+Completed 200 OK in 30ms (Views: 24.0ms | ActiveRecord: 0.0ms | Allocations: 11054)
+Started GET "/users/new" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered shared/_error_messages.html.erb (Duration: 0.2ms | Allocations: 145)
+  Rendered users/new.html.erb within layouts/application (Duration: 5.8ms | Allocations: 3870)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 8.2ms | Allocations: 5654)
+Completed 200 OK in 25ms (Views: 9.2ms | ActiveRecord: 3.8ms | Allocations: 10348)
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM `users`[0m
+Started POST "/users" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"name"=>"taro", "email"=>"taro1025@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'taro1025@gmail.com' LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`name`, `email`, `password_digest`, `created_at`, `updated_at`) VALUES ('taro', 'taro1025@gmail.com', '$2a$04$J30rGBPrpnC9xXU0fifz1.eY7wfewwIlvnFd3Fzjne.9K07A6szMG', '2021-05-19 05:36:01.269109', '2021-05-19 05:36:01.269109')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://www.example.com/
+Completed 302 Found in 6ms (ActiveRecord: 1.3ms | Allocations: 1436)
+Started GET "/" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by StaticPagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering static_pages/home.html.erb within layouts/application
+  Rendered static_pages/home.html.erb within layouts/application (Duration: 0.1ms | Allocations: 40)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | Allocations: 1824)
+Completed 200 OK in 3ms (Views: 2.8ms | ActiveRecord: 0.0ms | Allocations: 2125)
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM `users`[0m
+  [1m[36mTRANSACTION (63.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN[0m
+Started GET "/" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by StaticPagesController#home as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering static_pages/home.html.erb within layouts/application
+  Rendered static_pages/home.html.erb within layouts/application (Duration: 0.3ms | Allocations: 35)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 5.5ms | Allocations: 1812)
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 0.0ms | Allocations: 2111)
+Started GET "/users/new" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by UsersController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered shared/_error_messages.html.erb (Duration: 0.0ms | Allocations: 9)
+  Rendered users/new.html.erb within layouts/application (Duration: 1.7ms | Allocations: 774)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 4.6ms | Allocations: 2552)
+Completed 200 OK in 6ms (Views: 5.7ms | ActiveRecord: 0.0ms | Allocations: 2869)
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM `users`[0m
+Started POST "/users" for 127.0.0.1 at 2021-05-19 05:36:01 +0000
+Processing by UsersController#create as HTML
+  Parameters: {"user"=>{"name"=>"taro", "email"=>"taro1025@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'taro1025@gmail.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendering layout layouts/application.html.erb
+  Rendering users/new.html.erb within layouts/application
+  Rendered shared/_error_messages.html.erb (Duration: 0.7ms | Allocations: 524)
+  Rendered users/new.html.erb within layouts/application (Duration: 2.6ms | Allocations: 1870)
+[Webpacker] Everything's up-to-date. Nothing to do
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | Allocations: 3641)
+Completed 200 OK in 9ms (Views: 5.3ms | ActiveRecord: 1.0ms | Allocations: 4666)
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT COUNT(*) FROM `users`[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'yamade1@rails.com' LIMIT 1[0m
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO `users` (`name`, `email`, `password_digest`, `profile_text`, `created_at`, `updated_at`) VALUES ('Yamada Tarou', 'yamade1@rails.com', '$2a$04$9GcV47Er2rNBhfnBLAy2yO15Gv2kX.YhHpx6diYOCpGL2wEXN536e', 'よろしく！', '2021-05-19 05:36:01.408720', '2021-05-19 05:36:01.408720')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Create (1.0ms)[0m  [1m[32mINSERT INTO `posts` (`user_id`, `created_at`, `updated_at`) VALUES (13, '2021-05-19 05:36:01.423634', '2021-05-19 05:36:01.423634')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAction Create (1.2ms)[0m  [1m[32mINSERT INTO `actions` (`conclusion`, `created_at`, `updated_at`) VALUES ('ok', '2021-05-19 05:36:01.432662', '2021-05-19 05:36:01.432662')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPost Load (0.7ms)[0m  [1m[34mSELECT `posts`.* FROM `posts` WHERE `posts`.`user_id` = 13 ORDER BY `posts`.`id` ASC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAction Load (0.4ms)[0m  [1m[34mSELECT `actions`.* FROM `actions` WHERE `actions`.`id` = 7 LIMIT 1[0m
+  [1m[36mActionPlan Create (0.8ms)[0m  [1m[32mINSERT INTO `action_plans` (`action_id`, `post_id`, `created_at`, `updated_at`) VALUES (7, 7, '2021-05-19 05:36:01.446675', '2021-05-19 05:36:01.446675')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mActionPlan Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `action_plans` WHERE `action_plans`.`post_id` = 7 LIMIT 1[0m
+  [1m[36mTRANSACTION (82.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO `users` (`name`, `email`, `password_digest`, `profile_text`, `created_at`, `updated_at`) VALUES ('Taro', 'game2@gmail.com', '$2a$04$XH/QuJeozaxdV5tj5AlrKe1q1T0z1lHSBN9IL3snSRYpr/k.wSmHi', 'I am Taro', '2021-05-19 05:36:01.547546', '2021-05-19 05:36:01.547546')[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Create (0.6ms)[0m  [1m[32mINSERT INTO `posts` (`user_id`, `tag_id`, `introduction_text`, `introduction?`, `created_at`, `updated_at`) VALUES (14, 1, 'こんにちは', TRUE, '2021-05-19 05:36:01.553162', '2021-05-19 05:36:01.553162')[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTag Create (0.9ms)[0m  [1m[32mINSERT INTO `tags` (`tag`, `created_at`, `updated_at`) VALUES ('ニキビ', '2021-05-19 05:36:01.571451', '2021-05-19 05:36:01.571451')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT `posts`.* FROM `posts` WHERE `posts`.`user_id` = 14 ORDER BY `posts`.`id` ASC LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT `posts`.* FROM `posts` WHERE `posts`.`id` = 8 LIMIT 1[0m
+  [1m[36mTagHub Create (0.9ms)[0m  [1m[32mINSERT INTO `tag_hubs` (`tag_id`, `post_id`, `created_at`, `updated_at`) VALUES (4, 8, '2021-05-19 05:36:01.582442', '2021-05-19 05:36:01.582442')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT `posts`.* FROM `posts` WHERE `posts`.`id` = 8 LIMIT 1[0m
+  [1m[36mLike Create (0.9ms)[0m  [1m[32mINSERT INTO `likes` (`post_id`, `user_id`, `created_at`, `updated_at`) VALUES (8, 14, '2021-05-19 05:36:01.592376', '2021-05-19 05:36:01.592376')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAction Create (0.4ms)[0m  [1m[32mINSERT INTO `actions` (`step`, `conclusion`, `description`, `created_at`, `updated_at`) VALUES (1, '顔あらえ', 'すっきりするじゃん', '2021-05-19 05:36:01.594522', '2021-05-19 05:36:01.594522')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAction Load (0.4ms)[0m  [1m[34mSELECT `actions`.* FROM `actions` WHERE `actions`.`id` = 8 LIMIT 1[0m
+  [1m[36mActionPlan Create (0.3ms)[0m  [1m[32mINSERT INTO `action_plans` (`action_id`, `post_id`, `created_at`, `updated_at`) VALUES (8, 8, '2021-05-19 05:36:01.598059', '2021-05-19 05:36:01.598059')[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (117.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'user@example.com' LIMIT 1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'USER@foo.com' LIMIT 1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'A_US-ER@foo.bar.org' LIMIT 1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'first.last@foo.jp' LIMIT 1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'alice+bob@baz.cn' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'user@example,com' LIMIT 1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'user_at_foo.org' LIMIT 1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'user.name@example.' LIMIT 1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'foo@bar_baz.com' LIMIT 1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'foo@bar+baz.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO `users` (`name`, `email`, `password_digest`, `profile_text`, `created_at`, `updated_at`) VALUES ('Taro', 'game2@gmail.com', '$2a$04$gaBNWA30N2gXOcSUofw1KuCynwSXbUS6IoNdc34iuQNQ2Llb/qwga', 'I am Taro', '2021-05-19 05:36:01.750047', '2021-05-19 05:36:01.750047')[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'GAME2@GMAIL.COM' LIMIT 1[0m
+  [1m[36mTRANSACTION (147.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'game2@gmail.com' LIMIT 1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
