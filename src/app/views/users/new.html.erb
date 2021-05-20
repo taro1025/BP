@@ -2,6 +2,8 @@
 <div>
   <div>
     <%= form_with model: @user do |f| %>
+      <%= render 'shared/error_messages' %>
+
       <%= f.label :name %>
       <%= f.text_field :name %>
 
@@ -14,7 +16,7 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.submit "Create" %>
+      <%= f.submit "Create", id: 'create' %>
     <% end %>
   </div>
 </div>
