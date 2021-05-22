@@ -12,14 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2021_05_17_153655) do
 
-  create_table "action_plans", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "action_plans", charset: "utf8mb4", force: :cascade do |t|
     t.integer "action_id", null: false
     t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "actions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "actions", charset: "utf8mb4", force: :cascade do |t|
     t.integer "step"
     t.string "conclusion"
     t.text "description"
@@ -27,14 +27,14 @@ ActiveRecord::Schema.define(version: 2021_05_17_153655) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "likes", charset: "utf8mb4", force: :cascade do |t|
     t.integer "post_id"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "posts", charset: "utf8mb4", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "tag_id"
     t.string "introduction_title", default: "はじめに"
@@ -45,20 +45,20 @@ ActiveRecord::Schema.define(version: 2021_05_17_153655) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "tag_hubs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tag_hubs", charset: "utf8mb4", force: :cascade do |t|
     t.integer "tag_id", null: false
     t.integer "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tags", charset: "utf8mb4", force: :cascade do |t|
     t.string "tag", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
     t.string "password_digest"
