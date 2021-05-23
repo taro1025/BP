@@ -53,7 +53,7 @@ jobs:
     
     working_directory: ~/BP/src    
     steps:
-      - checkout
+      - checkout:
         path: ~/BP
       - ruby/install-deps
       - node/install-packages:
