@@ -19,8 +19,9 @@ jobs:
       - image: mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: password
+          MYSQL_PASSWORD: password
           MYSQL_DATABASE: app_test
-          MYSQL_USER: test
+          MYSQL_USER: tester
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -33,7 +34,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: Database setup
-          command: bundle exec rails db:migrate
+          command: bundle exec rails db:create db:migrate
       - run:
           name: tester
           command: bundle exec rake test
