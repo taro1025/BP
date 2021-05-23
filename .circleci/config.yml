@@ -1,8 +1,51 @@
-  version: 2.1
-  jobs:
-    build:
-      docker: 
-        - image: circleci/node:4.8.2 # ジョブのコマンドが実行されるプライマリ コンテナ
-      steps:
-        - checkout # プロジェクト ディレクトリ内のコードをチェック アウトします
-        - run: echo "hello world" # `echo` コマンドを実行します
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.1.2
+
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7.3
+    working_directory: ~/BP/src
+    steps:
+      - checkout:
+          path: ~/BP
+      - ruby/install-deps
+
+  test:
+    docker:
+      - image: circleci/ruby:2.7.3
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: app_test
+          MYSQL_USER: root
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      APP_DATABASE_HOST: "127.0.0.1"
+      RAILS_ENV: test
+    working_directory: ~/BP/src
+    steps:
+      - checkout:
+          path: ~/BP
+      - ruby/install-deps
+      - run:
+          name: Database setup
+          command: bundle exec rails db:migrate
+      - run:
+          name: test
+          command: bundle exec rake test
+      
+      - ruby/rspec-test
+
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
