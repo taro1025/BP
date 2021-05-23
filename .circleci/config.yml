@@ -13,10 +13,13 @@ jobs:
         auth:
           username: taro1025
           password: $DOCKER_HUB_PASSWORD
-    working_directory: ./src/          
+            
 
     steps:
       - checkout # pull down our git code.
+      - run:
+          name: TTTT
+         command: cd src
       - ruby/install-deps # use the ruby orb to install dependencies
       # use the node orb to install our packages
       # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
