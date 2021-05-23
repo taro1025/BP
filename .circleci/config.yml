@@ -16,12 +16,11 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:2.7.3
-      - image: circleci/mysql:5.7
+      - image: mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_PASSWORD: password
           MYSQL_DATABASE: app_test
-          MYSQL_USER: tester
+          MYSQL_USER: root
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -34,16 +33,22 @@ jobs:
       - ruby/install-deps
       - run:
           name: Database setup
-          command: bundle exec rails db:create db:migrate
-      #- run:
-      #    name: tester
-      #    command: bundle exec rake test
+          command: bundle exec rails db:migrate
+      - run:
+          name: test
+          command: bundle exec rake test
       
-      #- run:
-      #    name: rspec
-      #    command: bundle exec rspec
       - ruby/rspec-test
 
+  deploy:
+    machine:
+      image: ubuntu-2004:202104-01
+    steps:
+      - checkout
+            # CircleCI に登録した秘密鍵を呼び出す
+      - add_ssh_keys:
+            # CircleCI に登録した環境変数を使って SSH
+      - run: ssh ec2-user@54.168.110.37 'cd /BP && git pull'
 
 workflows:
   version: 2
@@ -53,3 +58,10 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: main
