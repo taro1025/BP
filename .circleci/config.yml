@@ -25,6 +25,8 @@ jobs:
       # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
       # learn more: https://circleci.com/docs/2.0/caching/
       - node/install-packages:
+        parameters:
+          app-dir: ~/project/src
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
