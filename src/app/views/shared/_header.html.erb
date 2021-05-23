@@ -1,0 +1,6 @@
+<%= link_to 'home', root_path %>
+<%= link_to 'login', login_path %>
+<% if logged_in? %>
+  <%= link_to 'プロフ', '#' %>
+  <%= link_to 'ログアウト', logout_path, method: :delete %>
+<% end %>
