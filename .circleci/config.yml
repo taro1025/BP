@@ -39,9 +39,10 @@ jobs:
       #    name: tester
       #    command: bundle exec rake test
       
-      - run:
-          name: rspec
-          command: bundle exec rspec
+      #- run:
+      #    name: rspec
+      #    command: bundle exec rspec
+      - ruby/rspec_test
 
 
 workflows:
