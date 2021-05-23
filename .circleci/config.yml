@@ -16,13 +16,15 @@ jobs:
             
     working_directory: ~/BP/src
     steps:
-      - checkout: # pull down our git code.
+      - checkout # pull down our git code.
           #path: ~/BP
           
       - ruby/install-deps:
         parameters:
           path: ~/BP/src
       - node/install-packages:
+        parameters:
+          app-dir: ~/BP/src      
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
