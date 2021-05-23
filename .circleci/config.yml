@@ -17,16 +17,14 @@ jobs:
     working_directory: ~/BP/src
     steps:
       - checkout # pull down our git code.
-      
-      - ruby/install-deps # use the ruby orb to install dependencies
-        parameters:
-          path: ~/BP/src      
+          path: ~/BP
+          
+      - ruby/install-deps # use the ruby orb to install dependencies   
       # use the node orb to install our packages
       # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
       # learn more: https://circleci.com/docs/2.0/caching/
       - node/install-packages:
         parameters:
-          app-dir: ~/BP/src
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
@@ -46,19 +44,19 @@ jobs:
           password: $DOCKER_HUB_PASSWORD  # context / project UI env-var reference
         environment: # add POSTGRES environment variables.
           MYSQL_DATABASE: app_test
-          MYSQL_HOST: 127.0.0.1
           MYSQL_USER: root
     # environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
-      MYSQLHOST: 127.0.0.1
-      MYSQLUSER: circleci-demo-ruby
-      MYSQLPASSWORD: ""
+      APP_DATABASE_HOST: "127.0.0.1"
       RAILS_ENV: test
     # A series of steps to run, some are similar to those in "build".
+    
+    working_directory: ~/BP/src    
     steps:
       - checkout
+        path: ~/BP
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
