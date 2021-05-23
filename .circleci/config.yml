@@ -16,15 +16,13 @@ jobs:
             
     working_directory: ~/BP/src
     steps:
-      - checkout # pull down our git code.
-          path: ~/BP
+      - checkout: # pull down our git code.
+          #path: ~/BP
           
-      - ruby/install-deps # use the ruby orb to install dependencies   
-      # use the node orb to install our packages
-      # specifying that we use `yarn` and to cache dependencies with `yarn.lock`
-      # learn more: https://circleci.com/docs/2.0/caching/
-      - node/install-packages:
+      - ruby/install-deps:
         parameters:
+          path: ~/BP/src
+      - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
