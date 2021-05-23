@@ -20,13 +20,8 @@ jobs:
           #path: ~/BP
           
       - ruby/install-deps:
-
             path: ~/BP/src
-      - node/install-packages:
-      
-          app-dir: ~/BP/src      
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
+
 
   test:  # our next job, called "test"
     # we run "parallel job containers" to enable speeding up our tests;
@@ -58,9 +53,7 @@ jobs:
       - checkout:
           path: ~/BP
       - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
+
       # Here we make sure that the secondary container boots
       # up before we run operations on the database.
       - run:
