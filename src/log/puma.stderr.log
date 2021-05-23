@@ -1,0 +1,5 @@
+=== puma startup: 2021-05-23 20:57:30 +0900 ===
+2021-05-23 20:57:49 +0900 Rack app ("GET /" - (127.0.0.1)): #<NameError: Cannot load database configuration:
+undefined local variable or method `db' for main:Object>
+=== puma startup: 2021-05-23 21:00:46 +0900 ===
+=== puma startup: 2021-05-23 21:05:54 +0900 ===
