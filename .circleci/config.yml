@@ -20,10 +20,10 @@ jobs:
           #path: ~/BP
           
       - ruby/install-deps:
-        parameters:
-          path: ~/BP/src
+
+            path: ~/BP/src
       - node/install-packages:
-        parameters:
+      
           app-dir: ~/BP/src      
           pkg-manager: yarn
           cache-key: "yarn.lock"
@@ -56,7 +56,7 @@ jobs:
     working_directory: ~/BP/src    
     steps:
       - checkout:
-        path: ~/BP
+          path: ~/BP
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
