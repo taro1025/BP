@@ -1,76 +1,51 @@
-version: 2.1 # Use 2.1 to enable using orbs and other features.
-
-# Declare the orbs that we'll use in our config.
-# read more about orbs: https://circleci.com/docs/2.0/using-orbs/
+version: 2.1
 orbs:
-  ruby: circleci/ruby@1.0
-  node: circleci/node@2
+  ruby: circleci/ruby@1.1.2
+
 
 jobs:
-  build: # our first job, named "build"
+  build:
     docker:
-      - image: cimg/ruby:2.7.3-node # use a tailored CircleCI docker image.
-        auth:
-          username: taro1025
-          password: $DOCKER_HUB_PASSWORD
-            
+      - image: circleci/ruby:2.7.3
     working_directory: ~/BP/src
-    steps:
-      - checkout # pull down our git code.
-          #path: ~/BP
-          
-      - ruby/install-deps:
-            path: ~/BP/src
-
-
-  test:  # our next job, called "test"
-    # we run "parallel job containers" to enable speeding up our tests;
-    # this splits our tests across multiple containers.
-    parallelism: 3
-    # here we set TWO docker images.
-    docker:
-      - image: cimg/ruby:2.7.3-node # this is our primary docker image, where step commands run.
-        auth:
-          username: taro1025
-          password: $DOCKER_HUB_PASSWORD  # context / project UI env-var reference
-      - image: circleci/mysql:5.7
-        auth:
-          username: taro1025
-          password: $DOCKER_HUB_PASSWORD  # context / project UI env-var reference
-        environment: # add POSTGRES environment variables.
-          MYSQL_DATABASE: app_test
-          MYSQL_USER: root
-    # environment variables specific to Ruby/Rails, applied to the primary container.
-    environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      APP_DATABASE_HOST: "127.0.0.1"
-      RAILS_ENV: test
-    # A series of steps to run, some are similar to those in "build".
-    
-    working_directory: ~/BP/src    
     steps:
       - checkout:
           path: ~/BP
       - ruby/install-deps
 
-      # Here we make sure that the secondary container boots
-      # up before we run operations on the database.
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+  test:
+    docker:
+      - image: circleci/ruby:2.7.3
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: app_test
+          MYSQL_USER: root
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      APP_DATABASE_HOST: "127.0.0.1"
+      RAILS_ENV: test
+    working_directory: ~/BP/src
+    steps:
+      - checkout:
+          path: ~/BP
+      - ruby/install-deps
       - run:
           name: Database setup
-          command: bundle exec rails db:schema:load --trace
-      # Run rspec in parallel
+          command: bundle exec rails db:migrate
+      - run:
+          name: test
+          command: bundle exec rake test
+      
       - ruby/rspec-test
 
-# We use workflows to orchestrate the jobs that we declared above.
+
 workflows:
   version: 2
-  build_and_test:     # The name of our workflow is "build_and_test"
-    jobs:             # The list of jobs we run as part of this workflow.
-      - build         # Run build first.
-      - test:         # Then run test,
-          requires:   # Test requires that build passes for it to run.
-            - build   # Finally, run the build job.          
+  build_test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
