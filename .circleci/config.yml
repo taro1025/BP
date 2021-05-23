@@ -26,7 +26,7 @@ jobs:
       # learn more: https://circleci.com/docs/2.0/caching/
       - node/install-packages:
         parameters:
-          app-dir: ~/project/src
+          app-dir: "~/project/src"
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
