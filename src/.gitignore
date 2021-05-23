@@ -1,5 +1,5 @@
 .env
 
-
+/db/mysql_data
 /config/master.key
 
