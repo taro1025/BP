@@ -52,7 +52,7 @@ jobs:
             # CircleCI に登録した秘密鍵を呼び出す
       - add_ssh_keys
             # CircleCI に登録した環境変数を使って SSH
-      - run: ssh ec2-user@54.168.110.37 'cd /BP && git fetch && git merge origin/main'
+      - run: ssh ec2-user@54.168.110.37 'cd /BP && sudo git fetch && sudo git merge origin/main'
 
 workflows:
   version: 2
