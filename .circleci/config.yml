@@ -42,7 +42,7 @@ jobs:
       #- run:
       #    name: rspec
       #    command: bundle exec rspec
-      - ruby/rspec_test
+      - ruby/rspec-test
 
 
 workflows:
