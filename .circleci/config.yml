@@ -1,14 +1,30 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1
-jobs:
-  build:
-    executor:
-      name: node/default
-      tag: '10.4'
+version: 2
+jobs: # 今回は 2 つのジョブを用意し、ワークフロー機能でジョブの調整を行います
+  one: # 1 つ目のジョブ
+    docker: # Docker Executor を使用します
+      - image: circleci/ruby:2.4.1 # Ruby 2.4.1 を含む Docker イメージを指定します
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
+    # ステップは、上記の Docker コンテナ内で実行するコマンドのリストです
+    steps:
+      - checkout # GitHub からコードをプルします
+      - run: echo "A first hello" # "A first hello" を stdout に出力します
+      - run: sleep 25 # 25 秒間スリープするようにジョブに指示するコマンド
+  two: # 2 つ目のジョブ
+    docker: # 前述と同様に Docker イメージ内で実行します
+      - image: circleci/ruby:2.4.1
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/プロジェクト UI 環境変数の参照
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-      - run: npm run test
+      - run: echo "A more familiar hi" # 前述のコマンドに類似した echo コマンドを実行します
+      - run: sleep 15 # 15 秒間スリープします
+# workflows 以下でマッピングを行い、上記で定義した 2 つのジョブを調整します
+workflows:
+  version: 2
+  one_and_two: # ワークフローの名前
+    jobs: # 実行するジョブをここにリストします
+      - one
+      - two
