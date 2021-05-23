@@ -39,7 +39,7 @@ jobs:
       #    name: tester
       #    command: bundle exec rake test
       
-      - ruby/rspec-test:
+      - run:
           name: rspec
           command: bundle exec rspec
 
