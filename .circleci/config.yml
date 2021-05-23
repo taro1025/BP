@@ -20,7 +20,7 @@ jobs:
       
       - ruby/install-deps # use the ruby orb to install dependencies
         parameters:
-          path: "~/BP/src"      
+          path: ~/BP/src      
       - ruby/install-deps # use the ruby orb to install dependenciesth
       - ruby/install-deps # use the ruby orb to install dependencies
       # use the node orb to install our packages
@@ -28,7 +28,7 @@ jobs:
       # learn more: https://circleci.com/docs/2.0/caching/
       - node/install-packages:
         parameters:
-          app-dir: "~/BP/src"
+          app-dir: ~/BP/src
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
