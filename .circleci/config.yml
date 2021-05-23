@@ -35,9 +35,9 @@ jobs:
       - run:
           name: Database setup
           command: bundle exec rails db:create db:migrate
-      - run:
-          name: tester
-          command: bundle exec rake test
+      #- run:
+      #    name: tester
+      #    command: bundle exec rake test
       
       - ruby/rspec-test
 
