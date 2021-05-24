@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_17_153655) do
+ActiveRecord::Schema.define(version: 2021_05_24_072032) do
 
   create_table "action_plans", charset: "utf8mb4", force: :cascade do |t|
     t.integer "action_id", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_05_17_153655) do
     t.text "profile_text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "remember_digest"
   end
 
 end
