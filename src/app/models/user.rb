@@ -34,6 +34,9 @@ class User < ApplicationRecord
   end
 
   def authenticated?(remember_token)
+    #remember_digestがないとき例外を出してしまうのでfalseを返す
+    return false unless remember_digest
+
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 

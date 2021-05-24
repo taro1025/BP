@@ -74,4 +74,9 @@ RSpec.describe User, type: :model do
       expect(@user).not_to be_valid
     end
   end
+
+  scenario 'when User not have remember digest login, it should be failed' do
+    expect(@user.authenticated?('')).to be false
+  end
+
 end
