@@ -37,3 +37,4 @@ yarn-debug.log*
 
 .ssh/
 ./src/.env
+./src/db/mysql_data/
