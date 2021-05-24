@@ -4,7 +4,11 @@ feature 'logout', type: :feature do
   background 'Login' do
     visit root_path
     click_link 'ログイン'
-    user = User.new(email: "aaa@gmail.com", password: "testpass",password_confirmation: "testpass", name: "taro", profile_text: "dfsf", image: "fd" )
+    user = User.new(
+        email: "aaa@gmail.com",
+        password: "testpass",password_confirmation: "testpass",
+        name: "taro", profile_text: "dfsf",
+        image: "fd",activated: true, activated_at: Time.zone.now )
     expect(user.save).to be true
     fill_in 'Email', with: 'aaa@gmail.com'
     fill_in 'Password', with: 'testpass'

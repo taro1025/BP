@@ -12,7 +12,11 @@ require 'rails_helper'
 # end
 RSpec.describe SessionsHelper, type: :helper do
   before do
-    @user = User.create(email: "aaa@gmail.com", password: "testpass",password_confirmation: "testpass", name: "taro", profile_text: "dfsf", image: "fd" )
+    @user = User.create(
+        email: "aaa@gmail.com",
+        password: "testpass",password_confirmation: "testpass",
+        name: "taro", profile_text: "dfsf",
+        image: "fd",activated: true, activated_at: Time.zone.now )
     remember @user
   end
   describe 'when have cookie have not session' do

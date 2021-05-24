@@ -2,8 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before do
-    @user = User.new(name:"Taro", profile_text:"I am Taro", email: "game2@gmail.com",
-                      password: "taro1111", password_confirmation: "taro1111")
+    @user = User.new(
+        email: "aaa@gmail.com",
+        password: "testpass",password_confirmation: "testpass",
+        name: "taro", profile_text: "dfsf",
+        image: "fd",activated: true, activated_at: Time.zone.now )
   end
 
   context 'All Relation' do

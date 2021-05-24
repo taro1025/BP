@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "Sessions", type: :request do
   before do
-    @user = User.create(email: "aaa@gmail.com", password: "testpass",password_confirmation: "testpass", name: "taro", profile_text: "dfsf", image: "fd" )
+    @user = User.create(
+        email: "aaa@gmail.com",
+        password: "testpass",password_confirmation: "testpass",
+        name: "taro", profile_text: "dfsf",
+        image: "fd",activated: true, activated_at: Time.zone.now )
   end
   describe "GET /login" do
     it "returns http success" do
