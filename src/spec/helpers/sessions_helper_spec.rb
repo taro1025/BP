@@ -11,5 +11,20 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe SessionsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @user = User.create(email: "aaa@gmail.com", password: "testpass",password_confirmation: "testpass", name: "taro", profile_text: "dfsf", image: "fd" )
+    remember @user
+  end
+  describe 'when have cookie have not session' do
+    it 'current_user retrns user ' do
+      expect(@user).to eq current_user
+      expect(logged_in?).to eq true
+    end
+  end
+  describe 'when remember digest is wrong' do
+    it 'return current_user nil' do
+      @user.update_attribute(:remember_digest, User.digest(User.new_token))
+      expect(current_user).to be nil
+    end
+  end
 end

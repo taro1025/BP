@@ -31,6 +31,5 @@ feature 'login', type: :feature do
     #Assert
     expect(page).not_to have_content 'Invalid email/password combination'
     expect(page).to have_content "Login success"
-
   end
 end
