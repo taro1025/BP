@@ -1,7 +1,7 @@
 version: '3'
 
-services: 
-  
+services:
+
   #本番ではDBはRDSをつかうのでこちらはオフ！
   db:
     image: mysql:5.7

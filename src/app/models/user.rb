@@ -16,7 +16,7 @@ class User < ApplicationRecord
                   format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: 8 }
+  validates :password, presence: true, length: { minimum: 8 }, allow_nil: true
 
   def User.digest(string)
     #ローカルだからコストを最低にしてるよ！
@@ -36,16 +36,26 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  def authenticated?(remember_token)
-    #remember_digestがないとき例外を出してしまうのでfalseを返す
-    return false unless remember_digest
+  #パスワードのauthenticateとは別物だよ！こっちはクッキー, emailのトークン。
+  def authenticated?(token, attribute)
+    digest = send("#{attribute}_digest")
+    #digestがないとき例外を出してしまうのでfalseを返す
+    return false unless digest
 
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   #ログアウトするときに使うよ
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def activate
+    update(activated: true, activated_at: Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
   end
 
   private
