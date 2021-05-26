@@ -3,3 +3,4 @@
 ./db/mysql_data/
 ./config/master.key
 
+sendgrid.env
