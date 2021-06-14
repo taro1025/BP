@@ -1,65 +1,133 @@
 version: 2.1
-orbs:
-  ruby: circleci/ruby@1.1.2
 
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15
+  aws-ecs: circleci/aws-ecs@2.0.0
+
+  #reactのデプロイ
 
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.7.3
-    working_directory: ~/BP/src
-    steps:
-      - checkout:
-          path: ~/BP
-      - ruby/install-deps
+  react-push:
+    working_directory: front/
+    - aws-ecr/build-and-push-image:
+        #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
+        account-url: AWS_ECR_ACCOUNT_URL
+        # リージョン
+        region: AWS_REGION
+        aws-access-key-id: AWS_ACCESS_KEY_ID
+        aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+        # ECRにリポジトリがなかったら創るか？
+        create-repo: true
+        # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
+        #dockerfile: front/Dockerfile
+        path: 'front/'
+        # ECRのリポジトリ
+        repo: front
+        tag: "${CIRCLE_SHA1}"
+  react-update:
+    - aws-ecs/deploy-service-update:
+        requires:
+          - aws-ecr/build-and-push-image
+        # ECSのタスク定義名
+        family: 'b_plus_service'
+        # ECSのクラスター名かARNのフルパス
+        cluster-name: 'b-plus'
+        # サービス名
+        service-name: 'b-plus'
+        # containerはタスク定義で設定したコンテナ名にする
+        container-image-name-updates: "container=front,tag=${CIRCLE_SHA1}"
 
-  test:
-    docker:
-      - image: circleci/ruby:2.7.3
-      - image: circleci/mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_PASSWORD: password
-          MYSQL_DATABASE: app_test
-          MYSQL_USER: tester
-    environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      APP_DATABASE_HOST: "127.0.0.1"
-      RAILS_ENV: test
-    working_directory: ~/BP/src
-    steps:
-      - checkout:
-          path: ~/BP
-      - ruby/install-deps
-      - run:
-          name: Database setup
-          command: bundle exec rails db:create db:migrate
+  # Railsのデプロイ
+  rails-push:
+    working_directory: api/
+    - aws-ecr/build-and-push-image:
+        account-url: AWS_ECR_ACCOUNT_URL
+        region: AWS_REGION
+        aws-access-key-id: AWS_ACCESS_KEY_ID
+        aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+        # ECRにリポジトリがなかったら創るか？
+        create-repo: true
+        dockerfile: Dockerfile.prod
+        path: api/
+        # ECRのリポジトリ
+        repo: api
+        tag: "${CIRCLE_SHA1}"
+        filters:
+          branches:
+            only: main
+  rails-update:
+    - aws-ecs/deploy-service-update:
+        requires:
+          - aws-ecr/build-and-push-image
+        # ECSのタスク定義名
+        family: 'b_plus_service'
+        # ECSのクラスター名かARNのフルパス
+        cluster-name: 'b-plus'
+        # サービス名
+        service-name: 'b-plus'
+        # containerはタスク定義で設定したコンテナ名にする
+        container-image-name-updates: "container=api,tag=${CIRCLE_SHA1}"
+  # Nginxのデプロイ
+  nginx-deploy:
+    working_directory: front/
+    - aws-ecr/build-and-push-image:
+        #AWS_ECR_ACCOUNT_URL => ${アカウントID}.dkr.ecr.${リージョン}.amazonaws.com
+        account-url: AWS_ECR_ACCOUNT_URL
+        # リージョン
+        region: AWS_REGION
+        aws-access-key-id: AWS_ACCESS_KEY_ID
+        aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+        # ECRにリポジトリがなかったら創るか？
+        create-repo: true
+        # Dockerfleのパス(デフォルトはカレントディレクトリのパス)
+        dockerfile: Dockerfile.prod
+        path: 'front/'
+        # ECRのリポジトリ
+        repo: nginx
+        tag: "${CIRCLE_SHA1}"
+        #requires:
+        #  - react-deploy:
+        #  - rails-deploy:
+        filters:
+          branches:
+            only: main
+  nginx-update:
+    - aws-ecs/deploy-service-update:
+        requires:
+          - aws-ecr/build-and-push-image
+        # ECSのタスク定義名
+        family: 'b_plus_service'
+        # ECSのクラスター名かARNのフルパス
+        cluster-name: 'b-plus'
+        # サービス名
+        service-name: 'b-plus'
+        # containerはタスク定義で設定したコンテナ名にする
+        container-image-name-updates: "container=nginx,tag=${CIRCLE_SHA1}"
 
-      - ruby/rspec-test
-
-  deploy:
-    machine:
-      image: ubuntu-2004:202104-01
-    steps:
-      - checkout
-            # CircleCI に登録した秘密鍵を呼び出す
-      - add_ssh_keys
-            # CircleCI に登録した環境変数を使って SSH
-      - run: ssh ec2-user@54.168.110.37 'cd /BP && sudo git fetch && sudo git merge origin/main'
-
-workflows:
+workfows:
   version: 2
-  build_test_and_deploy:
+  build_push_and_update:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - build
-            - test
+      - react-push:
           filters:
             branches:
               only: main
+      - react-update:
+          requires:
+            - react-push
+      - rails-push:
+          filters:
+            branches:
+              only: main
+      - rails-update:
+          requires:
+            - rails-push
+      - nginx-push:
+          filters:
+            branches:
+              only: main
+      - nginx-update:
+          requires:
+            - nginx-push
+            - react-push
+            - rails-push
